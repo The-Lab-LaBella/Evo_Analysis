@@ -64,6 +64,29 @@ First I'll give an overview of the questions I go through when investigating the
 
 ## Example Region
 
-To illustrate these analyses I will provide an example analysis.
+To illustrate these analyses I will provide an example analysis. I recently conducted an evolutionary analysis for a GWAS conducted on preterm birth and gestational age. (<https://www.nature.com/articles/s41588-023-01343-9>)
+
+One of the leading SNPs is rs7650602
+
+***NOTE on RS numbers**:* each variant in the human genome is assigned an "rs" number. This number will reference the same position in the human genome regardless of the version of the genome. Be sure to double and triple check which version of the genome you are using if you are identifying a SNP by the chromosome and position.
 
 ### 1. Risk allele
+
+There is no standardized way to report which SNP allele increases or decreases disease risk. You will likely need to go into the reporting to identify the risk allele.
+
+***Example:*** The GWAS used in this analysis reported the summary statistics as below:
+
+|       |              |       |       |               |            |            |             |            |              |
+|--------|---------|-----|-----|----------|----------|-------|--------|-------|--------|
+| CHR   | POS          | EFF   | REF   | RSID          | SAMPLESIZE | EAF        | BETA        | SE         | pvalue       |
+| **3** | **1.41E+08** | **T** | **C** | **rs7650602** | **192643** | **0.5233** | **-0.3122** | **0.0447** | **3.01E-12** |
+| 3     | 1.41E+08     | T     | G     | rs145418929   | 171646     | 0.9736     | -0.2752     | 0.2375     | 0.2467       |
+| 3     | 1.41E+08     | C     | A     | rs115605995   | 172653     | 0.9614     | 0.142       | 0.1156     | 0.2192       |
+
+From this you can see they report an effect (EFF) and reference (REF) allele. To understand the effect the alleles have on the trait (risk of preterm birth/PTB) we need to look at the beta value
+
+The beta value reports the per unit increase or decrease in the outcome. So for our SNP the beta value is -0.3122. Therefore there is a **decrease** in the risk of PTB associated with the effect allele (T)
+
+Effect Allele = T = decrease risk = protective allele
+
+Reference Allele = C = increased risk = risk allele
