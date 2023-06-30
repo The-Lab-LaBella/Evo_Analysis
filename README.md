@@ -131,6 +131,48 @@ Our SNP has a score of 1f which indicates that there is an eQTL (more to come on
 
 So, **we have good evidence that our SNP is in a regulatory region**
 
+### ChIP data
+
+ChIP stands for Chromatin immunoprecipitation
+
+You can learn more here: <https://www.youtube.com/watch?v=7_-Or4ARyH0> and <https://en.wikipedia.org/wiki/Chromatin_immunoprecipitation>
+
+The premise of ChIP is that you are able to **sequence the DNA bound to specific proteins**. You tightly bind (cross-link) DNA to Proteins and then selectively isolate the proteins (immunoprecipitation). Then sequence *only* the DNA bound to your protein. You can then generate a map of *where* your protein was bound to the genome.
+
+Our SNP has no ChIP data but I will use a **different SNP** to demonstrate what the results would look like.
+
+Results for SNP rs1316379
+
+![](images/CHIP.png){width="149"}
+
+![](images/chip_table.png)
+
+From this data we can see that two proteins ZFP82 and CEBPA are bound to our region of interest and in which organ this was detected. There is very good evidence that these two proteins can bind to our region.
+
+### Chromatin State
+
+DNA is not floating around our cells as double-stranded DNA. Instead DNA is highly organized into three-dimensional structures. The basic structure of DNA is the nucleosome where DNA wraps around histones (euchromatin). These histones then wrap into a fiber (heterochromatin).
+
+When DNA is wrapped up into chromatin, it cannot be expressed. (see more here: <https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/regulation-of-gene-expression-and-cell-specialization/v/dna-and-chromatin-regulation> )
+
+By looking to see if our DNA if interest is exposed (not wrapped up in chromatin) we can ask if this region is transcriptionally active in particular tissues.
+
+The chromatin state provided in regulomeDB is often the result of an analysis conducted in chromHMM ( <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3577932/> )
+
+The various chromatin states predicted are summarized below
+
+![](images/chrom_state.png)
+
+For our region the chromatin state has been found to be associated most frequently with weak transcription or active enhancer activity.
+
+![](images/chromatin.png){width="367"}
+
+From the summary figure we can see that
+
 ### Genome Browser 
 
-![](images/genome_Browserdb.png){width="386"}
+You **must click on the link** to see your region in the genome browser. (the snapshot is not of our region)
+
+![](images/genome_Browserdb-01.png)
+
+The genome browser gives us an overview of the location of our SNP (yellow line). There are over 422 tracks (data sets) that you can view on the genome browser.
