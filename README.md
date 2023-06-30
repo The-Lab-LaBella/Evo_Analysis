@@ -50,7 +50,7 @@ First I'll give an overview of the questions I go through when investigating the
 
 1.  If we are analyzing a region identified in a GWAS, which alleles (or haplotype) are the **risk** alleles?
 
-2.  What is known about the **function** of the region of interest?
+2.  What is known about the **consequence** of the variation in the region of interest?
 
 3.  Are the variants associated with any changes in **gene expression**?
 
@@ -90,3 +90,47 @@ The beta value reports the per unit increase or decrease in the outcome. So for 
 Effect Allele = T = decrease risk = protective allele
 
 Reference Allele = C = increased risk = risk allele
+
+## 2. Known variant consequences?
+
+Many SNPs in the human genome have confirmed or hypothesized functions. There are several resources we can turn to to find these confirmed or known consequences.
+
+**NIH dbSNP** <https://www.ncbi.nlm.nih.gov/snp/>
+
+![](images/snpdb.png){width="516"}
+
+In dbSNP we can see that this variant rs7650602 is in the **intron of the gene ZBTB38**
+
+**Ensembl** snp data ( <https://useast.ensembl.org/index.html> )
+
+![](images/ensembl.png){width="444"}
+
+The Ensembl data agrees with the data in the dbSNP. You can also see there is a link to "See all predicted consequences". This link will take you to see all the predicted consequences if there is more than one.
+
+## Expression Consequences
+
+Many common variants in the human genome have a regulatory function. If we were to find variants that result in non-synonymous changes (aka change amino acid sequences) we would turn to predictions of protein structure. These variants, however, often have severe consequences and are more likely to result in Mendelian disorders.
+
+Determining the regulatory function of a region in the human genome is challenging! But there are several databases that can help us understand which genes may be affected by variation at our SNP.
+
+**RegulomeDB** (<https://regulomedb.org/> )
+
+RegulomeDB has *a lot* of information. You can find information about the various sections here (<https://regulomedb.org/regulome-help/#FAQ>)
+
+Let's walk through it.
+
+![](images/rdb1.png){width="456"}
+
+First you will see the coordinates of the genome (in HG38 if you used the default). In this section the most important thing to look at is the **rank**
+
+The ranks range from 1 (most evidence) to 7 (least evidence) for data indicating that this variant is found in a regulatory region.
+
+![](images/dbrank.png){width="463"}
+
+Our SNP has a score of 1f which indicates that there is an eQTL (more to come on this) and either TF binding or a chromatin accessibility peak there.
+
+So, **we have good evidence that our SNP is in a regulatory region**
+
+### Genome Browser 
+
+![](images/genome_Browserdb.png){width="386"}
