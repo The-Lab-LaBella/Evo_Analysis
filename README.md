@@ -85,11 +85,11 @@ There is no standardized way to report which SNP allele increases or decreases d
 
 From this you can see they report an effect (EFF) and reference (REF) allele. To understand the effect the alleles have on the trait (risk of preterm birth/PTB) we need to look at the beta value
 
-The beta value reports the per unit increase or decrease in the outcome. So for our SNP the beta value is -0.3122. Therefore there is a **decrease** in the risk of PTB associated with the effect allele (T)
+The beta value reports the per unit increase or decrease in the outcome. So for our SNP the beta value is -0.3122. Therefore there is a **decrease** in the *days of gestation* for the effect allele (T)
 
-Effect Allele = T = decrease risk = protective allele
+Effect Allele = T = decrease days= risk allele
 
-Reference Allele = C = increased risk = risk allele
+Reference Allele = C = increased days = protective allele
 
 ## 2. Known variant consequences?
 
@@ -107,13 +107,13 @@ In dbSNP we can see that this variant rs7650602 is in the **intron of the gene Z
 
 The Ensembl data agrees with the data in the dbSNP. You can also see there is a link to "See all predicted consequences". This link will take you to see all the predicted consequences if there is more than one.
 
-## Expression Consequences
+## 3. Expression Consequences
 
 Many common variants in the human genome have a regulatory function. If we were to find variants that result in non-synonymous changes (aka change amino acid sequences) we would turn to predictions of protein structure. These variants, however, often have severe consequences and are more likely to result in Mendelian disorders.
 
 Determining the regulatory function of a region in the human genome is challenging! But there are several databases that can help us understand which genes may be affected by variation at our SNP.
 
-**RegulomeDB** (<https://regulomedb.org/> )
+## **RegulomeDB** (<https://regulomedb.org/> )  
 
 RegulomeDB has *a lot* of information. You can find information about the various sections here (<https://regulomedb.org/regulome-help/#FAQ>)
 
@@ -167,12 +167,116 @@ For our region the chromatin state has been found to be associated most frequent
 
 ![](images/chromatin.png){width="367"}
 
-From the summary figure we can see that
+If you click on the chromatin state you can see a more detailed view showing which sample and organ each chromatin state was shown
+
+![](images/biosample.png)
+
+From this, we can see that this region is likely an active enhancer in the heart and coronary artery.
+
+### Accessibility
+
+This section displays results from chromatin accessibility experiments. Accessible chromatin is not condensed and is therefore inferred to be transcriptionally active.
+
+DNase-seq sequences regions of the genome that are sensitive to cleavage by DNase enzyme--aka they are exposed ( <https://en.wikipedia.org/wiki/DNase_I_hypersensitive_site> )
+
+ATAC-seq stands for **A**ssay for **T**ransposase-**A**ccessible **C**hromatin with high-throughput **seq**uencing. It also attempts to sequence transcriptionally active regions of the genome. ( <https://www.activemotif.com/blog-atac-seq> )
+
+![](images/atac.png){width="257"}
+
+You can see from the summary figure our region was found to be accessible in two tissue samples through DNase-seq experiments.
+
+![](images/dnase.png)
+
+### Motifs
+
+Transcription factors bind to specific genomic sequences known as motifs. Each position in the motif may have a different allowance for different bases. These are often determined using a consensus of known binding motifs. (more: https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/what-is-genetic-variation/variants-in-transcription-factor-binging-motifs/ )
+
+![](images/tfs.png)
+
+You can see that in a cell line they detected binding of ZNF135. Our SNP has the red box around it. If we recall our protective and risk allele (C = decrease risk; T = increased risk) it looks like the risk allele T may interfere with the binding of ZNF135. The consensus sequence suggests that most of the time there is a C in that position in the motif. We would need to do additional analyses to confirm if C or T has better/worse binding of the TF to the DNA.
+
+### QTL data 
+
+QTL stands for Quantitative Trait Locus and is a region or SNP associated with a specific variable trait in the population. An eQTL is an expression-QTL that associates variation in the genome with variance in gene expression. The portal also reports caQTLs which are chromatin accessibility QTLs (read more <https://www.illumina.com/techniques/popular-applications/qtl-analysis.html> )
+
+![](images/qtl1.png){width="353"}
+
+From the snapshot we can see that there are 12 results in this category. We are going to further explore eQTLs below. This data shows that variation at our SNP results in the differential expression of the gene ZBTB38 in multiple tissues
+
+![](images/qtl2.png){width="455"}
 
 ### Genome Browser 
 
-You **must click on the link** to see your region in the genome browser. (the snapshot is not of our region)
+You **must click on the link** to see your region in the genome browser. (the snapshot is not of our region).
 
 ![](images/genome_Browserdb-01.png)
 
 The genome browser gives us an overview of the location of our SNP (yellow line). There are over 422 tracks (data sets) that you can view on the genome browser.
+
+### RegulomeDB summary
+
+Our variant is most likely found in a regulatory region that regulates expression of ZBTB38. This may be through binding of the transcription factor ZNF135
+
+## GTEx database (<https://gtexportal.org/home/>)
+
+Developmental Genotype-Tissue Expression (dGTEx) Project is an effort to study development-specific genetic effects on gene expression. You can search for the exact SNP of interest.
+
+Searching for **rs7650602** will bring up a Variant Page. This will have information about the variant and it's position.
+
+![](images/gtex-01.png)
+
+From here we can see that there is one eQTL for this locus. (note: this is the same as the results in regulomeDB. This is not always the case. The displays in GTEx are better so I like to look at them here)
+
+**eQTL violin plot** will show us how expression changes for the associated gene.
+
+![](images/blood2.png){width="360"}
+
+For each tissue you will see a plot showing the genotypes and the associated phenotypes. In whole blood we can see that being heterozygous for C (CC) there is increased expression of ZBTB38 as compared to heterozygous T (TT). In Skin (sun exposed) we see the opposite effect. Where CC is associated with lower expression of the same gene!
+
+**GTEx IGV Browswer** This will show you a visual of the eQTLs along the genome. You can add and remove tracks.
+
+**Multi-tissue eQTL Plot** This will show a visual of *all* the tissues that this variant is associated with.
+
+![](images/qtlmap.png)
+
+On the y-axis of the figure is the p-value. The smaller the p-value the greater the association between the expression variance and the tissue. On the y-axis is the m-value. This is "posterior probability that an eQTL effect exists in each tissue tested in the cross-tissue meta-analysis. The m-value ranges between 0 and 1"(Han & Eskin 2011 and 2012).
+
+m-value \<0.1: Tissue is predicted to NOT have an eQTL effect
+
+m-value \>0.9: Tissue is predicted to HAVE an eQTL effect
+
+0.1 \<= v-value \<= 0.9: Prediction effect is ambiguous
+
+This is why the dots all the way to the left (lowest m-value) are not reported on th previous page. The effect is not robust to additional meta-analysis.
+
+## 4. Pleiotropic effects
+
+### GWAS Catalog
+
+A single gene or locus can affect many different traits. We saw in our GWAS that this SNP can affect gestational age and preterm birth.
+
+This region may be pleiotropic, meaning that variation at this one locus influences multiple traits. We can turn to the GWAS catalog to look for other GWAS that have identified this variant. You can search the variant by it's rs **rs7650602** number on <https://www.ebi.ac.uk/gwas/>
+
+The GWAS catalog identified 18 traits with an association with our SNP
+
+![](images/gwascat.png)
+
+14 traits show increased risk with the C allele. These traits are broadly lymphocyte phenotypes, prostate cancer, male-pattern baldness, red blood cell count, pulmonary disease, and myopia.
+
+3 traits show increased risk with the T allele. *However,* these three are all associated with educational attainment. This is not very helpful to our analysis as there has likely not been significant selection on educational attainment.
+
+Interestingly, our risk allele T is the protective allele for many of these traits! This suggests that there may be trade-offs between these traits.
+
+### PheWAS
+
+A Phenome-wide association study (PheWAS) is essentially the opposite of a GWAS. Where researchers associated a single genomic loci with multiple phenotypes. (more: <https://en.wikipedia.org/wiki/Phenome-wide_association_study> )
+
+This will help us associate our exact locus with other phenotypes. There are a couple of resources we can use to look at this
+
+GWAS Atlas <https://atlas.ctglab.nl/PheWAS>
+
+![](images/phewas.png)
+
+You can see that there are a lot of metabolic traits associated with variation at this position. The two highest points on the right (purple) are both associated with height. From the PheWAS table you can see that the effect allele (EA) is C in many of the traits associated with height and size. This suggests that the protective allele C (for our trait) is associated with increased height and mass.
+
+*Side note: This may not seem intuitive.*
