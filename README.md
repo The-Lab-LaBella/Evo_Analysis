@@ -77,7 +77,7 @@ There is no standardized way to report which SNP allele increases or decreases d
 ***Example:*** The GWAS used in this analysis reported the summary statistics as below:
 
 |       |              |       |       |               |            |            |             |            |              |
-|--------|---------|-----|-----|----------|----------|-------|--------|-------|--------|
+|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
 | CHR   | POS          | EFF   | REF   | RSID          | SAMPLESIZE | EAF        | BETA        | SE         | pvalue       |
 | **3** | **1.41E+08** | **T** | **C** | **rs7650602** | **192643** | **0.5233** | **-0.3122** | **0.0447** | **3.01E-12** |
 | 3     | 1.41E+08     | T     | G     | rs145418929   | 171646     | 0.9736     | -0.2752     | 0.2375     | 0.2467       |
@@ -113,7 +113,7 @@ Many common variants in the human genome have a regulatory function. If we were 
 
 Determining the regulatory function of a region in the human genome is challenging! But there are several databases that can help us understand which genes may be affected by variation at our SNP.
 
-## **RegulomeDB** (<https://regulomedb.org/> )  
+## **RegulomeDB** (<https://regulomedb.org/> )
 
 RegulomeDB has *a lot* of information. You can find information about the various sections here (<https://regulomedb.org/regulome-help/#FAQ>)
 
@@ -189,13 +189,13 @@ You can see from the summary figure our region was found to be accessible in two
 
 ### Motifs
 
-Transcription factors bind to specific genomic sequences known as motifs. Each position in the motif may have a different allowance for different bases. These are often determined using a consensus of known binding motifs. (more: https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/what-is-genetic-variation/variants-in-transcription-factor-binging-motifs/ )
+Transcription factors bind to specific genomic sequences known as motifs. Each position in the motif may have a different allowance for different bases. These are often determined using a consensus of known binding motifs. (more: <https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/what-is-genetic-variation/variants-in-transcription-factor-binging-motifs/> )
 
 ![](images/tfs.png)
 
 You can see that in a cell line they detected binding of ZNF135. Our SNP has the red box around it. If we recall our protective and risk allele (C = decrease risk; T = increased risk) it looks like the risk allele T may interfere with the binding of ZNF135. The consensus sequence suggests that most of the time there is a C in that position in the motif. We would need to do additional analyses to confirm if C or T has better/worse binding of the TF to the DNA.
 
-### QTL data 
+### QTL data
 
 QTL stands for Quantitative Trait Locus and is a region or SNP associated with a specific variable trait in the population. An eQTL is an expression-QTL that associates variation in the genome with variance in gene expression. The portal also reports caQTLs which are chromatin accessibility QTLs (read more <https://www.illumina.com/techniques/popular-applications/qtl-analysis.html> )
 
@@ -205,7 +205,7 @@ From the snapshot we can see that there are 12 results in this category. We are 
 
 ![](images/qtl2.png){width="455"}
 
-### Genome Browser 
+### Genome Browser
 
 You **must click on the link** to see your region in the genome browser. (the snapshot is not of our region).
 
@@ -277,6 +277,107 @@ GWAS Atlas <https://atlas.ctglab.nl/PheWAS>
 
 ![](images/phewas.png)
 
-You can see that there are a lot of metabolic traits associated with variation at this position. The two highest points on the right (purple) are both associated with height. From the PheWAS table you can see that the effect allele (EA) is C in many of the traits associated with height and size. This suggests that the protective allele C (for our trait) is associated with increased height and mass.
+You can see that there are a lot of metabolic traits associated with variation at this position. The two highest points on the right (purple) are both associated with height. From the PheWAS table you can see that the effect allele (EA) is C in many of the traits associated with height and size. This suggests that the protective allele C (for our trait PTB) is associated with increased height and mass.
 
-*Side note: This may not seem intuitive.*
+*Side note: This may not seem intuitive. This suggests that people who were bigger babies are less likely to have a preterm birth. This was discussed in the original manuscript we looked at which discusses the complex relationship between **fetal** (not maternal) genes that increase fetal weight.*
+
+## 5. Conservation
+
+One of the strongest signatures of different evolutionary histories is the presence (or absence) of conservation in a region.
+
+### Derived versus Ancestral allele
+
+First we will try to uncover which allele is older (ancestral) and which allele is newer (derived). This data can be found easily in the Ensembl database (<https://useast.ensembl.org/Homo_sapiens>)
+
+![](images/ensembl_anc.png)
+
+For our snp **rs7650602** the ancestral (older) allele is C. This means that the derived (newer) allele is T
+
+### How old is the allele?
+
+#### Across mammals or vertebrates
+
+If the C allele is older, how long ago was the T allele introduced to humans? By looking at conservation across different groups of species we can try to determine if the derived allele existed prior to speciation.
+
+We can look at this conservation in Ensembl or in the UCSC genome browswer. For this case I'll use Ensembl.
+
+![](images/ensemblconserv.png){width="405"}
+
+Our region of interest is in the Red T. You can see that at this position *all* the other species that have DNA that will align to this region have a C. This suggests that the C is highly conserved and old!
+
+*Side note: The genomes on genome browsers are reference genomes. We know very little about the genomic diversity of most species. So having a C in one position doesn't necessarily mean that no gorillas have a T. However, if T and C were both common across all the species we would expect that some of them would have T and some would have a C.*
+
+#### Across great apes
+
+As a part of the Great Ape Genome Project ( <https://eichlerlab.gs.washington.edu/greatape/> ) multiple Great Ape genomes were sequenced. Great Apes are our closest living non-human relatives. Using this data we can confirm (or refute) the hypothesis that great apes do not have a T at this position.
+
+The Great Ape Files are in our labella_lab project space and are VCF Files. Importantly, the positions are **hg18** which is an old version of the human genome. Moreover, the VCF file **does not contain rs numbers**. Therefore we will need to find the position of our variant in hg18.
+
+To find the variant in hg18 we will use an archive version of Ensembl BioMart. <http://may2009.archive.ensembl.org/index.html>
+
+![](images/hg18.png){width="346"}
+
+When we search for **rs7650602** we see it is at this position in hg18 3:142630104
+
+We can then search the VCF files for this position (all the great ape genomes are labeled in reference to hg18). To do this we use vcftools (<https://vcftools.sourceforge.net/man_latest.html>) which is already installed on the HPC
+
+```         
+ml vcftools
+
+ vcftools --gzvcf Pongo_pygmaeus.vcf.gz --chr chr3 --from-bp 142630104 --to-bp 142630104 --recode --out rs7650602.Pongo_pygmaeus.vcf.gz
+```
+
+**NOTE:** Originally I had `–chr 3` but it requires `–chr chr3` . This is because there is no requirement for the format of the chromosome in the VCF file. Therefore you should double check what the VCF file uses if you are getting strange results.
+
+We found the site! Now let's get that for all the genomes
+
+```         
+VCFtools - 0.1.16
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+        --gzvcf Pongo_pygmaeus.vcf.gz
+        --chr chr3
+        --to-bp 142630104
+        --out rs7650602.Pongo_pygmaeus.vcf.gz
+        --recode
+        --from-bp 142630104
+
+Using zlib version: 1.2.11
+Warning: Expected at least 2 parts in FORMAT entry: ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+Warning: Expected at least 2 parts in INFO entry: ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+Warning: Expected at least 2 parts in INFO entry: ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+Warning: Expected at least 2 parts in INFO entry: ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+Warning: Expected at least 2 parts in INFO entry: ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+After filtering, kept 5 out of 5 Individuals
+Outputting VCF file...
+After filtering, kept 1 out of a possible 78877390 Sites
+Run Time = 163.00 seconds
+
+```
+
+#### Ancient Human DNA
+
+Recently, we have been able to look at our evolutionary history after our split from the great apes but before modern humans by analyzing ancient human DNA from Neanderthals and Denisovans.
+
+![](images/neanderthal.png){width="349"}
+
+This figure from nature shows interbreeding between the various lineages of early modern humans.
+
+There are new ancient human genomes being sequenced all the time. But the easiest way to look for ancient human variation is on the UCSC Genome browser for GRCh37/hg19
+
+To visualize the Neandert(h)al and Denisovan assemblies set the following tracks to full and then hit refersh
+
+![](images/set_neanderthal.png)
+
+We can then search for our variant and zoom in on the reads from ancient humans
+
+![](images/denisovan.png)
+
+And we see that in the track "Variant Calls from High-Coverage Genome Sequence of an Archiac Denisovan Individual" has a sequence at this position. So let's click on the blue box and see what the data shows
+
+![](images/denisovan_data-01.png)
+
+From this we can see that 100% of the Denisovan samples were C. This *suggests* that the T variant was not present in ancient humans.
+
+# 6. Modern Human Variation
