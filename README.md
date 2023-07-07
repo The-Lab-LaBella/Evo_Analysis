@@ -467,4 +467,44 @@ Unfortunately, this dataset did not contain our position of interest.
 
 # 6. Modern Human Variation
 
-Many modern humans have now been sequenced either at the whole-genome level or just for common human variants. We can use this data to ask questions about the fequency and haplotype structure of the region of interest.
+Many modern humans have now been sequenced either at the whole-genome level or just for common human variants. We can use this data to ask questions about the frequency and haplotype structure of the region of interest.
+
+### Allele Frequency
+
+There are multiple resources we can use to look at the frequency of alleles at **rs7650602**
+
+dbSNP shows aggregate allele frequency from a source called ALFA <https://www.ncbi.nlm.nih.gov/snp/docs/gsr/alfa>
+
+![](images/freq_snpdb.png)
+
+From this data we can see that globally the alleles are at nearly equal frequency. When we look at the sub-populations you can see that the risk allele T is at the highest frequency in individuals of Asian ancestry while the protective allele C is at the highest frequency in individuals of African Ancestry.
+
+Also on this page you can find the allele frequencies identified in specific studies such as the 1000Genomes project or gnomAD
+
+### Haplotype Structure
+
+SNPs in the genome do not evolve in isolation. We can learn a lot about how tightly variants are linked to nearby variants. (more info here <https://www.youtube.com/watch?v=r1H1uRQ8CKM> )
+
+The tightness of this linkage can tell us something about how old the region is and/or if it has been subject to selection. Indeed, our metrics iHS and XP-EHH all utilize haplotype structure/linkage in their analysis. If the haploytpe structure varies significantly between populations of humans that can tell us about population-specific evolution.
+
+To construct the haplotypes we need **phased** genomic data. This means that we know the string of alleles along a chromosome.
+
+So for example imagine if we have three SNPs in the genome and an individual has the following genotypes:
+
+SNP1: C/T
+
+SNP2: A/A
+
+SNP3: G/C
+
+We have two possible haplotype configurations:
+
+Possible Haplotypes 1:
+
+C-A-G and T-A-C
+
+Possible Haplotypes 2:
+
+C-A-C and T-A-G
+
+Luckily the 1000 genomes project has phased genome data for individuals of various ancestries for us to use!
